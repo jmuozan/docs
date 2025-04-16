@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jmuozan docs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .wip-text {
+            font-size: 4rem;
+            font-weight: bold;
+            letter-spacing: 8px;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .wip-text span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.5s ease forwards;
+            color: #00c896;
+            text-shadow: 0 0 10px rgba(0, 200, 150, 0.5);
+        }
+        
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .loading-dots {
+            font-size: 2rem;
+            letter-spacing: 4px;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 42px;
+            background-color: #00c896;
+            margin-left: 6px;
+            animation: blink 1s infinite;
+        }
+        
+        .back-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+        }
+        
+        .shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            top: 20%;
+            left: 25%;
+            animation-delay: 0s;
+        }
+        
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+            top: 40%;
+            right: 20%;
+            animation-delay: 1.5s;
+        }
+        
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #f857a6, #ff5858);
+            bottom: 20%;
+            left: 35%;
+            animation-delay: 3s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+                transform: translateY(10px) translateX(-15px);
+            }
+            75% {
+                transform: translateY(15px) translateX(5px);
+            }
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="back-shape">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <h1>jmuozan docs</h1>
+        <div class="wip-text" id="wip-text">
+            <!-- Text will be added by JS -->
+        </div>
+        <div class="loading-dots" id="loading-dots"></div>
+        <span class="cursor"></span>
+    </div>
+    
+    <div class="footer">
+        &copy; 2025 | Check back soon for updates
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Text animation for "WORK IN PROGRESS"
+            const wipText = "WORK IN PROGRESS";
+            const wipElement = document.getElementById('wip-text');
+            const loadingElement = document.getElementById('loading-dots');
+            
+            let dotCount = 0;
+            const maxDots = 3;
+            let dotsText = '';
+            
+            function animateText() {
+                wipElement.innerHTML = '';
+                
+                [...wipText].forEach((letter, index) => {
+                    const span = document.createElement('span');
+                    span.textContent = letter;
+                    span.style.animationDelay = `${index * 0.1}s`;
+                    wipElement.appendChild(span);
+                });
+            }
+            
+            function updateLoadingDots() {
+                dotCount = (dotCount + 1) % (maxDots + 1);
+                dotsText = '.'.repeat(dotCount);
+                loadingElement.textContent = dotsText;
+                setTimeout(updateLoadingDots, 500);
+            }
+            
+            // Initial animations
+            animateText();
+            updateLoadingDots();
+            
+            // Repeat the animation every 5 seconds
+            setInterval(() => {
+                [...wipElement.children].forEach(span => {
+                    span.style.opacity = 0;
+                    span.style.transform = 'translateY(20px)';
+                });
+                
+                setTimeout(() => {
+                    animateText();
+                }, 500);
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
