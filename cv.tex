@@ -3,8 +3,15 @@
 % Packages
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{enumitem}
-\usepackage{hyperref}
+\usepackage{fontawesome} % Add this if not already included
+\usepackage{xcolor} % For custom colors
 \usepackage{titlesec}
+
+% Configure hyperref - place this AFTER xcolor but BEFORE hyperref is loaded
+\definecolor{linkgray}{rgb}{0.4,0.4,0.4} % Define a gray color for links
+
+% Load hyperref with custom settings
+\usepackage[colorlinks=true, linkcolor=linkgray, urlcolor=linkgray, citecolor=linkgray, bookmarks=true, breaklinks=true, hidelinks=false]{hyperref}
 
 % Format section headings
 \titleformat{\section}{\normalfont\bfseries}{\thesection}{0em}{}[\titlerule]
@@ -22,7 +29,7 @@
 Industrial Design Engineer / Computation Designer / Digital Fabrication Specialist / Researcher\\
 València / Barcelona\\
 email: jmuozan@gmail.com\\
-\url{https://jmuozan.github.io/jorgemunyozz.github.io/}
+\href{https://jmuozan.github.io/jorgemunyozz.github.io/}{jmuozan.github.io/jorgemunyozz.github.io}
 \end{center}
 
 % Employment section
@@ -75,30 +82,32 @@ email: jmuozan@gmail.com\\
 % Outreach section
 \section*{OUTREACH}
 \begin{itemize}[leftmargin=*,label={},itemsep=2pt]
-    \item \textbf{La Galería by Lastcrit} -- Conducted workshop "Neo Artesanía: Creando puente entre lo físico y digital"\\
-    04/2025
-
+    \item \textbf{La Galería by Lastcrit} -- Conducted workshop ``Neo Artesanía: Creando puente entre lo físico y digital''\\
+    \href{https://www.instagram.com/lagaleria_by_lastcrit/}{\faInstagram\ @lagaleria\_by\_lastcrit} \hfill 04/2025
+    
     \item \textbf{Distributed Design Platform} -- Featured in Online Exhibition as a Creative\\
-    03/2025
+    \href{https://distributeddesign.eu/}{\faGlobe\ distributeddesign.eu} \hfill 03/2025
     
-    \item \textbf{LLUM 25 BCN Festival Barcelona} -- Participated with installation: Miralls del Dem\`a\\
-    02/2025
+    \item \textbf{LLUM 25 BCN Festival Barcelona} -- Participated with installation: Miralls del Demà\\
+    \href{https://www.barcelona.cat/llumbcn/es}{\faGlobe\ barcelona.cat/llumbcn} \hfill 02/2025
     
-    \item \textbf{ELISAVA Seminar} -- Co-hosted 'Collective Intelligence' seminar for the students of the Master in Design for Emergent Futures 2025\\
-    01/2025
+    \item \textbf{ELISAVA Seminar} -- Co-hosted 'Collective Intelligence' seminar for the Master in Design for Emergent Futures 2025\\
+    \href{https://mdef.fablabbcn.org/}{\faGlobe\ mdef.fablabbcn.org} \hfill 01/2025
     
-    \item \textbf{Craftinnova V Encuentro Internacional de Oficios Artísticos e Innovación} -- Delivered workshop on nuevos m\'etodos de aprendizaje artesano representing Fab Lab Barcelona\\
-    12/2024
+    \item \textbf{Craftinnova V Encuentro Internacional de Oficios Artísticos e Innovación} -- Delivered workshop on nuevos métodos de aprendizaje artesano representing Fab Lab Barcelona\\
+    \href{https://www.craftinnova.es/}{\faGlobe\ craftinnova.es} \hfill 12/2024
     
     \item \textbf{DAFNE+ Partner Symposium} -- Presented talk\\
-    07/2024
+    \href{https://dafneplus.eu/}{\faGlobe\ dafneplus.eu} \hfill 07/2024
     
-    \item \textbf{infoSOS Journal} -- Featured in interview on sustainability: "Jorge Mu\~noz: 'El concepto de muebles que pueden evolucionar y son sostenibles tiene un gran futuro'"\\
-    03/2024
+    \item \textbf{infoSOS Journal} -- Featured in interview on sustainability: ``Jorge Muñoz: 'El concepto de muebles que pueden evolucionar y son sostenibles tiene un gran futuro'''\\
+    \href{https://infosos.es/jorge-munoz-el-concepto-de-muebles-que-pueden-evolucionar-y-son-sostenibles-tiene-un-gran-futuro/}{\faNewspaper\ infosos.es/interview} \hfill 03/2024
     
-    \item \textbf{Universitat Polit\`ecnica de Val\`encia (UPV)} -- Featured in interview: "Premios UNESCO: La organizaci\'on de las Naciones Unidas premia los proyectos de nueve estudiantes de la UPV para el dise\~no de un futuro sostenible"\\
-    02/2024
+    \item \textbf{Universitat Politècnica de València (UPV)} -- Featured in interview: ``Premios UNESCO: La organización de las Naciones Unidas premia los proyectos de nueve estudiantes de la UPV para el diseño de un futuro sostenible''\\
+    \href{https://www.upv.es/noticias-upv/noticia-14469-premios-unesco-es.html}{\faUniversity\ upv.es/article} \hfill 02/2024
     
+    \item \textbf{Centre d'Artesania de la Comunitat Valenciana} -- Featured in exhibition ``Premis Artesania Comunitat Valenciana 2022''\\
+    \href{https://www.centroartesaniacv.com/galeria/documentos/1672397676_1.PDF}{\faFile\ Exhibition PDF} \hfill 10/2022
 \end{itemize}
 
 % Languages section
