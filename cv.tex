@@ -10,8 +10,8 @@
 % Configure hyperref - place this AFTER xcolor but BEFORE hyperref is loaded
 \definecolor{linkgray}{rgb}{0.4,0.4,0.4} % Define a gray color for links
 
-% Load hyperref with custom settings
-\usepackage[colorlinks=true, linkcolor=linkgray, urlcolor=linkgray, citecolor=linkgray, bookmarks=true, breaklinks=true, hidelinks=false]{hyperref}
+% Load hyperref with custom settings - ENABLE BOOKMARKS
+\usepackage[colorlinks=true, linkcolor=linkgray, urlcolor=linkgray, citecolor=linkgray, bookmarks=true, bookmarksopen=true, bookmarksnumbered=false, breaklinks=true, hidelinks=false, pdfstartview=FitV]{hyperref}
 
 % Format section headings
 \titleformat{\section}{\normalfont\bfseries}{\thesection}{0em}{}[\titlerule]
@@ -32,7 +32,11 @@ email: jmuozan@gmail.com\\
 \href{https://jmuozan.github.io/jorgemunyozz.github.io/}{jmuozan.github.io/jorgemunyozz.github.io}
 \end{center}
 
+% Add manual bookmark for header
+\pdfbookmark[0]{Jorge Muñoz Zanón - CV}{cv-header}
+
 % Employment section
+\pdfbookmark[1]{Employment}{employment}
 \section*{EMPLOYMENT}
 \begin{itemize}[leftmargin=*,label={},itemsep=6pt]
     \item \textbf{Institut Bellvitge}, STEM Teacher\\
@@ -58,6 +62,7 @@ email: jmuozan@gmail.com\\
 \end{itemize}
 
 % Education section
+\pdfbookmark[1]{Education}{education}
 \section*{EDUCATION}
 \begin{itemize}[leftmargin=*,label={},itemsep=6pt]
     \item \textbf{Institute for Advanced Architecture of Catalonia (IAAC) / FAB LAB BCN / ELISAVA}\\
@@ -70,6 +75,7 @@ email: jmuozan@gmail.com\\
 \end{itemize}
 
 % Publications & Writtings section
+\pdfbookmark[1]{Publications \& Writings}{publications}
 \section*{PUBLICATIONS \& WRITINGS}
 \begin{itemize}[leftmargin=*,label={},itemsep=6pt]
     \item \textbf{My experience as DAFNE+ Ambassador}\\
@@ -82,6 +88,7 @@ email: jmuozan@gmail.com\\
 \end{itemize}
 
 % Recognition section
+\pdfbookmark[1]{Recognitions}{recognitions}
 \section*{RECOGNITIONS}
 \begin{itemize}[leftmargin=*,label={},itemsep=2pt]
     \item \textbf{Mención de Honor craftinnova} AI.RTISANSHIP: Preservando la Artesanía en la Era Digital\\
@@ -105,6 +112,7 @@ email: jmuozan@gmail.com\\
 \end{itemize}
 
 % Outreach section
+\pdfbookmark[1]{Outreach}{outreach}
 \section*{OUTREACH}
 \begin{itemize}[leftmargin=*,label={},itemsep=2pt]
     \item \textbf{La Galería by Lastcrit} -- Conducted workshop ``Neo Artesanía: Creando puente entre lo físico y digital''\\
@@ -136,6 +144,7 @@ email: jmuozan@gmail.com\\
 \end{itemize}
 
 % Languages section
+\pdfbookmark[1]{Languages}{languages}
 \section*{LANGUAGES}
 \begin{itemize}[leftmargin=*,label={},itemsep=2pt]
     \item \textbf{Catalan/Valencian} · (Native)
@@ -148,6 +157,7 @@ email: jmuozan@gmail.com\\
 \end{itemize}
 
 % Certifications section
+\pdfbookmark[1]{Certifications}{certifications}
 \section*{CERTIFICATIONS}
 \begin{itemize}[leftmargin=*,label={},itemsep=2pt]
     \item \textbf{Ad. Parametric Texture : Rhino + Gh Masterclass}\\
