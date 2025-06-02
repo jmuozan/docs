@@ -87,19 +87,51 @@
             color: #e0e0e0;
         }
 
-        /* Projects Section */
-        .projects-header {
+        /* Collapsible Sections */
+        .collapsible-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid #333;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
         }
 
-        .projects-title {
+        .section-header:hover {
+            opacity: 0.8;
+        }
+
+        .section-title {
             font-size: 1.2rem;
             font-weight: 500;
+            user-select: none;
+        }
+
+        .collapse-indicator {
+            margin-left: auto;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+
+        .collapsible-section.collapsed .collapse-indicator {
+            transform: rotate(-90deg);
+        }
+
+        .section-content {
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+        }
+
+        .collapsible-section.collapsed .section-content {
+            max-height: 0;
+            opacity: 0;
         }
 
         .search-container {
@@ -139,11 +171,13 @@
             pointer-events: none;
         }
 
-        .project-card.hidden {
+        .project-card.hidden,
+        .outreach-card.hidden {
             display: none;
         }
 
-        .project-card {
+        .project-card,
+        .outreach-card {
             transition: transform 0.3s ease;
         }
 
@@ -155,38 +189,43 @@
             font-style: italic;
         }
 
-        .projects-grid {
+        .projects-grid,
+        .outreach-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
         }
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .project-card {
+        .project-card,
+        .outreach-card {
             position: relative;
             aspect-ratio: 1;
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.3s ease;
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%; /* Forces 1:1 aspect ratio */
         }
 
-        .project-card:hover {
+        .project-card:hover,
+        .outreach-card:hover {
             transform: translateY(-5px);
         }
 
-        .project-image {
+        .project-image,
+        .outreach-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: opacity 0.3s ease;
         }
 
-        .project-overlay {
+        .project-overlay,
+        .outreach-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -197,17 +236,20 @@
             transition: transform 0.3s ease;
         }
 
-        .project-card:hover .project-overlay {
+        .project-card:hover .project-overlay,
+        .outreach-card:hover .outreach-overlay {
             transform: translateY(0);
         }
 
-        .project-title {
+        .project-title,
+        .outreach-title {
             font-size: 0.9rem;
             font-weight: 500;
             margin-bottom: 0.25rem;
         }
 
-        .project-year {
+        .project-year,
+        .outreach-year {
             font-size: 0.8rem;
             color: #ccc;
         }
@@ -221,6 +263,124 @@
         .green-bias { background: linear-gradient(135deg, #4caf50, #8bc34a); }
         .boxing-reactions { background: linear-gradient(135deg, #00bcd4, #009688); }
         .being-physical { background: linear-gradient(135deg, #607d8b, #455a64); }
+
+        /* Outreach Images */
+        .tech-talk { background: linear-gradient(135deg, #e91e63, #f06292); }
+        .workshop-series { background: linear-gradient(135deg, #ff9800, #ffb74d); }
+        .sustainability-forum { background: linear-gradient(135deg, #4caf50, #81c784); }
+        .design-thinking { background: linear-gradient(135deg, #9c27b0, #ba68c8); }
+        .innovation-lab { background: linear-gradient(135deg, #f44336, #ef5350); }
+        .future-cities { background: linear-gradient(135deg, #2196f3, #64b5f6); }
+
+        /* CV Section */
+        .cv-section {
+            padding: 4rem 0;
+            background: #0a0a0a;
+            margin-top: 3rem;
+        }
+
+        .cv-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .cv-column {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .cv-column-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .cv-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cv-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            font-size: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .cv-arrow {
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 0.1rem;
+            flex-shrink: 0;
+        }
+
+        .cv-details {
+            flex: 1;
+        }
+
+        .cv-title {
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 0.25rem;
+            font-size: 0.8rem;
+        }
+
+        .cv-role {
+            color: #ccc;
+            margin-bottom: 0.25rem;
+            font-size: 0.8rem;
+        }
+
+        .cv-author {
+            color: #ccc;
+            margin-bottom: 0.25rem;
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        .cv-date {
+            color: #888;
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cv-link {
+            margin-top: 0.25rem;
+        }
+
+        .cv-link a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: color 0.3s ease;
+        }
+
+        .cv-link a:hover {
+            color: #7bb3f0;
+            text-decoration: underline;
+        }
+
+        /* Remove old CV styles */
+        .cv-grid {
+            display: none;
+        }
+
+        .cv-subsection,
+        .cv-subsection-header,
+        .cv-subsection-content {
+            display: none;
+        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -239,7 +399,8 @@
                 gap: 1.5rem;
             }
 
-            .projects-grid {
+            .projects-grid,
+            .outreach-grid {
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
                 gap: 1rem;
             }
@@ -251,10 +412,47 @@
             .content-block {
                 font-size: 0.9rem;
             }
+
+            .section-header {
+                flex-wrap: wrap;
+            }
+
+            .search-container {
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .cv-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .cv-subsection-header {
+                padding: 0.75rem 1rem;
+            }
+
+            .cv-subsection.expanded .cv-subsection-content {
+                padding: 0.75rem 1rem;
+            }
+
+            .cv-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .cv-section {
+                padding: 2rem 0;
+            }
         }
 
         @media (max-width: 480px) {
-            .projects-grid {
+            .projects-grid,
+            .outreach-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
@@ -270,20 +468,29 @@
         }
 
         /* Animations */
-        .project-card {
+        .project-card,
+        .outreach-card {
             animation: fadeInUp 0.6s ease forwards;
             opacity: 0;
             transform: translateY(20px);
         }
 
-        .project-card:nth-child(1) { animation-delay: 0.1s; }
-        .project-card:nth-child(2) { animation-delay: 0.2s; }
-        .project-card:nth-child(3) { animation-delay: 0.3s; }
-        .project-card:nth-child(4) { animation-delay: 0.4s; }
-        .project-card:nth-child(5) { animation-delay: 0.5s; }
-        .project-card:nth-child(6) { animation-delay: 0.6s; }
-        .project-card:nth-child(7) { animation-delay: 0.7s; }
-        .project-card:nth-child(8) { animation-delay: 0.8s; }
+        .project-card:nth-child(1),
+        .outreach-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2),
+        .outreach-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3),
+        .outreach-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4),
+        .outreach-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5),
+        .outreach-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6),
+        .outreach-card:nth-child(6) { animation-delay: 0.6s; }
+        .project-card:nth-child(7),
+        .outreach-card:nth-child(7) { animation-delay: 0.7s; }
+        .project-card:nth-child(8),
+        .outreach-card:nth-child(8) { animation-delay: 0.8s; }
 
         @keyframes fadeInUp {
             to {
@@ -326,82 +533,355 @@
                 </div>
             </div>
 
-            <section class="projects-section">
-                <div class="projects-header">
-                    <h2 class="projects-title">Projects</h2>
+            <!-- Projects Section -->
+            <section class="collapsible-section" id="projectsSection">
+                <div class="section-header" onclick="toggleSection('projectsSection')">
+                    <h2 class="section-title">Projects</h2>
                     <div class="search-container">
                         <input type="text" class="search-input" placeholder="Search projects..." id="projectSearch">
                         <div class="search-icon"></div>
                     </div>
+                    <div class="collapse-indicator">▼</div>
                 </div>
 
-                <div class="projects-grid" id="projectsGrid">
-                    <div class="project-card" data-title="dust bloom">
-                        <div class="project-image dust-bloom"></div>
-                        <div class="project-overlay">
-                            <div class="project-title">Ars Post Faber</div>
-                            <div class="project-year">2025</div>
+                <div class="section-content">
+                    <div class="projects-grid" id="projectsGrid">
+                        <div class="project-card" data-title="dust bloom">
+                            <div class="project-image dust-bloom"></div>
+                            <div class="project-overlay">
+                                <div class="project-title">Ars Post Faber</div>
+                                <div class="project-year">2025</div>
+                            </div>
+                        </div>
+
+                        <div class="project-card" data-title="data slots">
+                            <div class="project-image data-slots"></div>
+                            <div class="project-overlay">
+                                <div class="project-title">LLUM BCN 2025</div>
+                                <div class="project-year">2025</div>
+                            </div>
+                        </div>
+
+                        <div class="project-card" data-title="beijing inside out">
+                            <div class="project-image beijing-inside"></div>
+                            <div class="project-overlay">
+                                <div class="project-title">Non-Planar Robotic 3D Printing</div>
+                                <div class="project-year">2024</div>
+                            </div>
+                        </div>
+
+                        <div class="project-card" data-title="fiberspace">
+                            <div class="project-image fiberspace"></div>
+                            <div class="project-overlay">
+                                <div class="project-title">AI.RTISANSHIP</div>
+                                <div class="project-year">2024</div>
+                            </div>
+                        </div>
+
+                        <div class="project-card" data-title="feeling nature">
+                            <div class="project-image feeling-nature"></div>
+                            <div class="project-overlay">
+                                <div class="project-title">AI 3D MODELS GH</div>
+                                <div class="project-year">2024</div>
+                            </div>
+                        </div>
+
+                        <div class="project-card" data-title="green bias">
+                            <div class="project-image green-bias"></div>
+                            <div class="project-overlay">
+                                <div class="project-title">Reencuentro</div>
+                                <div class="project-year">2023</div>
+                            </div>
+                        </div>
+
+                        <div class="project-card" data-title="boxing reactions">
+                            <div class="project-image boxing-reactions"></div>
+                            <div class="project-overlay">
+                                <div class="project-title">Slow Furniture</div>
+                                <div class="project-year">2023</div>
+                            </div>
+                        </div>
+
+                        <div class="project-card" data-title="being physical">
+                            <div class="project-image being-physical"></div>
+                            <div class="project-overlay">
+                                <div class="project-title">Happy Meal for the Future</div>
+                                <div class="project-year">2023</div>
+                            </div>
+                        </div>
+
+                        <div class="no-results" id="projectsNoResults" style="display: none;">
+                            No projects found matching your search.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Outreach Section -->
+            <section class="collapsible-section" id="outreachSection">
+                <div class="section-header" onclick="toggleSection('outreachSection')">
+                    <h2 class="section-title">Outreach</h2>
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Search outreach..." id="outreachSearch">
+                        <div class="search-icon"></div>
+                    </div>
+                    <div class="collapse-indicator">▼</div>
+                </div>
+
+                <div class="section-content">
+                    <div class="outreach-grid" id="outreachGrid">
+                        <div class="outreach-card" data-title="neo artesania workshop">
+                            <div class="outreach-image tech-talk"></div>
+                            <div class="outreach-overlay">
+                                <div class="outreach-title">Neo Artesanía Workshop</div>
+                                <div class="outreach-year">2025</div>
+                            </div>
+                        </div>
+
+                        <div class="outreach-card" data-title="distributed design exhibition">
+                            <div class="outreach-image workshop-series"></div>
+                            <div class="outreach-overlay">
+                                <div class="outreach-title">Distributed Design Exhibition</div>
+                                <div class="outreach-year">2025</div>
+                            </div>
+                        </div>
+
+                        <div class="outreach-card" data-title="llum bcn festival">
+                            <div class="outreach-image sustainability-forum"></div>
+                            <div class="outreach-overlay">
+                                <div class="outreach-title">LLUM BCN Festival</div>
+                                <div class="outreach-year">2025</div>
+                            </div>
+                        </div>
+
+                        <div class="outreach-card" data-title="collective intelligence seminar">
+                            <div class="outreach-image design-thinking"></div>
+                            <div class="outreach-overlay">
+                                <div class="outreach-title">Collective Intelligence Seminar</div>
+                                <div class="outreach-year">2025</div>
+                            </div>
+                        </div>
+
+                        <div class="outreach-card" data-title="craftinnova workshop">
+                            <div class="outreach-image innovation-lab"></div>
+                            <div class="outreach-overlay">
+                                <div class="outreach-title">Craftinnova Workshop</div>
+                                <div class="outreach-year">2024</div>
+                            </div>
+                        </div>
+
+                        <div class="outreach-card" data-title="dafne symposium talk">
+                            <div class="outreach-image future-cities"></div>
+                            <div class="outreach-overlay">
+                                <div class="outreach-title">DAFNE+ Symposium Talk</div>
+                                <div class="outreach-year">2024</div>
+                            </div>
+                        </div>
+
+                        <div class="outreach-card" data-title="infosos interview">
+                            <div class="outreach-image tech-talk"></div>
+                            <div class="outreach-overlay">
+                                <div class="outreach-title">InfoSOS Interview</div>
+                                <div class="outreach-year">2024</div>
+                            </div>
+                        </div>
+
+                        <div class="outreach-card" data-title="upv unesco feature">
+                            <div class="outreach-image workshop-series"></div>
+                            <div class="outreach-overlay">
+                                <div class="outreach-title">UPV UNESCO Feature</div>
+                                <div class="outreach-year">2024</div>
+                            </div>
+                        </div>
+
+                        <div class="outreach-card" data-title="artesania exhibition">
+                            <div class="outreach-image sustainability-forum"></div>
+                            <div class="outreach-overlay">
+                                <div class="outreach-title">Artesanía Exhibition</div>
+                                <div class="outreach-year">2022</div>
+                            </div>
+                        </div>
+
+                        <div class="no-results" id="outreachNoResults" style="display: none;">
+                            No outreach activities found matching your search.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CV Section -->
+            <section class="cv-section">
+                <div class="cv-container">
+                    <div class="cv-column">
+                        <h3 class="cv-column-title">Employment</h3>
+                        <div class="cv-content">
+                            <div class="cv-item">
+                                <div class="cv-title">Institut Bellvitge</div>
+                                <div class="cv-role">STEM Teacher</div>
+                                <div class="cv-date">May 2025 - Jun 2025</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Synergetic Operas</div>
+                                <div class="cv-role">Computation Designer</div>
+                                <div class="cv-date">Sep 2024 - Apr 2025</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Institut TIC de Barcelona</div>
+                                <div class="cv-role">Computer Science Teacher</div>
+                                <div class="cv-date">Jan 2025 - May 2025</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Dafne+</div>
+                                <div class="cv-role">Ambassador</div>
+                                <div class="cv-date">May 2024 - May 2025</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Universitat Politècnica de València (UPV)</div>
+                                <div class="cv-role">Pedro Duque laboratory technician</div>
+                                <div class="cv-date">Apr 2023 - Jul 2023</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">YUDesign UPV</div>
+                                <div class="cv-role">Member</div>
+                                <div class="cv-date">May 2022 - Sep 2023</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">YUDesign UPV</div>
+                                <div class="cv-role">Social Media Coordinator</div>
+                                <div class="cv-date">Nov 2022 - Sep 2023</div>
+                            </div>
+                        </div>
+
+                        <h3 class="cv-column-title">Education</h3>
+                        <div class="cv-content">
+                            <div class="cv-item">
+                                <div class="cv-title">Institute for Advanced Architecture of Catalonia (IAAC) / FAB LAB BCN / ELISAVA</div>
+                                <div class="cv-role">Master in Design for Emergent Futures</div>
+                                <div class="cv-date">Oct 2023 - Sep 2025</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Universitat Politècnica de València (UPV)</div>
+                                <div class="cv-role">Bachelor's Degree in Industrial Design Engineering and Product Development</div>
+                                <div class="cv-date">Sep 2019 - Sep 2023</div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="project-card" data-title="data slots">
-                        <div class="project-image data-slots"></div>
-                        <div class="project-overlay">
-                            <div class="project-title">LLUM BCN 2025</div>
-                            <div class="project-year">2025</div>
+                    <div class="cv-column">
+                        <h3 class="cv-column-title">Publications</h3>
+                        <div class="cv-content">
+                            <div class="cv-item">
+                                <div class="cv-arrow">→</div>
+                                <div class="cv-details">
+                                    <div class="cv-title">My experience as DAFNE+ Ambassador</div>
+                                    <div class="cv-author">Muñoz Zanón, J. (2025). Fab Lab Barcelona.</div>
+                                    <div class="cv-link"><a href="https://fablabbcn.org/blog/emergent-ideas/my-experience-as-dafne-ambassador" target="_blank">fablabbcn.org</a> · May 2025</div>
+                                </div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-arrow">→</div>
+                                <div class="cv-details">
+                                    <div class="cv-title">Slow furniture: disseny d'un moble evolutiu, durador i emocional</div>
+                                    <div class="cv-author">Muñoz Zanón, J. (2023). Universitat Politècnica de València.</div>
+                                    <div class="cv-link"><a href="https://riunet.upv.es/handle/10251/197203" target="_blank">riunet.upv.es</a> · Sep 2023</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="cv-column-title">Recognitions</h3>
+                        <div class="cv-content">
+                            <div class="cv-item">
+                                <div class="cv-title">Mención de Honor craftinnova</div>
+                                <div class="cv-role">AI.RTISANSHIP: Preservando la Artesanía en la Era Digital</div>
+                                <div class="cv-date">Dec 2024</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Bronze Award - UNESCO International Innovation Design Awards (IIDA)</div>
+                                <div class="cv-role">Innovation Contest 2023</div>
+                                <div class="cv-date">Dec 2023</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">1st Place McDonald's Happy Meal for the Future Challenge</div>
+                                <div class="cv-role">McDonald's + DFGN + TMS</div>
+                                <div class="cv-date">Jun 2023</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Second prize in the 2023 TALENT-HOP Scholarship</div>
+                                <div class="cv-role">ALE-HOP</div>
+                                <div class="cv-date">May 2023</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Finalist of the 2022 Valencian Community Artisanship Awards</div>
+                                <div class="cv-role">Generalitat Valenciana - Conselleria d'Economia Sostenible</div>
+                                <div class="cv-date">Dec 2022</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Second prize in the 2022 TALENT-HOP Scholarship</div>
+                                <div class="cv-role">ALE-HOP</div>
+                                <div class="cv-date">May 2022</div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="project-card" data-title="beijing inside out">
-                        <div class="project-image beijing-inside"></div>
-                        <div class="project-overlay">
-                            <div class="project-title">Non-Planar Robotic 3D Printing</div>
-                            <div class="project-year">2024</div>
+                    <div class="cv-column">
+                        <h3 class="cv-column-title">Languages</h3>
+                        <div class="cv-content">
+                            <div class="cv-item">
+                                <div class="cv-title">Catalan/Valencian</div>
+                                <div class="cv-role">Native</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Spanish</div>
+                                <div class="cv-role">Native</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">English</div>
+                                <div class="cv-role">C1</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Italian</div>
+                                <div class="cv-role">B1/B2 (Courses at Centro G. Leopardi)</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="project-card" data-title="fiberspace">
-                        <div class="project-image fiberspace"></div>
-                        <div class="project-overlay">
-                            <div class="project-title">AI.RTISANSHIP</div>
-                            <div class="project-year">2024</div>
+                        <h3 class="cv-column-title">Certifications</h3>
+                        <div class="cv-content">
+                            <div class="cv-item">
+                                <div class="cv-title">Ad. Parametric Texture : Rhino + Gh Masterclass</div>
+                                <div class="cv-role">Cademy</div>
+                                <div class="cv-date">Nov 2024</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Computational Design Workshop</div>
+                                <div class="cv-role">Cademy</div>
+                                <div class="cv-date">Sep 2024</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Marketing Innovative Products and Services</div>
+                                <div class="cv-role">University of Maryland</div>
+                                <div class="cv-date">Apr 2024</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Engineering Design for a Circular Economy</div>
+                                <div class="cv-role">Delft University of Technology</div>
+                                <div class="cv-date">Mar 2024</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Data Science: Visualization</div>
+                                <div class="cv-role">Harvard University</div>
+                                <div class="cv-date">Jan 2024</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Keyshot Rendering Masterclass</div>
+                                <div class="cv-role">Cademy</div>
+                                <div class="cv-date">Dec 2023</div>
+                            </div>
+                            <div class="cv-item">
+                                <div class="cv-title">Grasshopper 3D Masterclass</div>
+                                <div class="cv-role">Cademy</div>
+                                <div class="cv-date">Nov 2023</div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="project-card" data-title="feeling nature">
-                        <div class="project-image feeling-nature"></div>
-                        <div class="project-overlay">
-                            <div class="project-title">AI 3D MODELS GH</div>
-                            <div class="project-year">2024</div>
-                        </div>
-                    </div>
-
-                    <div class="project-card" data-title="green bias">
-                        <div class="project-image green-bias"></div>
-                        <div class="project-overlay">
-                            <div class="project-title">Reencuentro</div>
-                            <div class="project-year">2023</div>
-                        </div>
-                    </div>
-
-                    <div class="project-card" data-title="boxing reactions">
-                        <div class="project-image boxing-reactions"></div>
-                        <div class="project-overlay">
-                            <div class="project-title">Slow Furniture</div>
-                            <div class="project-year">2023</div>
-                        </div>
-                    </div>
-
-                    <div class="project-card" data-title="being physical">
-                        <div class="project-image being-physical"></div>
-                        <div class="project-overlay">
-                            <div class="project-title">Happy Meal for the Future</div>
-                            <div class="project-year">2023</div>
-                        </div>
-                    </div>
-
-                    <div class="no-results" id="noResults" style="display: none;">
-                        No projects found matching your search.
                     </div>
                 </div>
             </section>
@@ -409,12 +889,40 @@
     </div>
 
     <script>
-        // Search functionality
-        const searchInput = document.getElementById('projectSearch');
-        const projectCards = document.querySelectorAll('.project-card[data-title]');
-        const noResults = document.getElementById('noResults');
+        // Toggle section collapse/expand
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const isCollapsed = section.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                section.classList.remove('collapsed');
+                // Set max-height to allow transition
+                const content = section.querySelector('.section-content');
+                content.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                section.classList.add('collapsed');
+                const content = section.querySelector('.section-content');
+                content.style.maxHeight = '0px';
+            }
+        }
 
-        searchInput.addEventListener('input', function() {
+        // Initialize sections with proper max-height
+        function initializeSections() {
+            const sections = document.querySelectorAll('.collapsible-section');
+            sections.forEach(section => {
+                const content = section.querySelector('.section-content');
+                if (!section.classList.contains('collapsed')) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        }
+
+        // Search functionality for projects
+        const projectSearch = document.getElementById('projectSearch');
+        const projectCards = document.querySelectorAll('.project-card[data-title]');
+        const projectsNoResults = document.getElementById('projectsNoResults');
+
+        projectSearch.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase().trim();
             let visibleCount = 0;
 
@@ -432,20 +940,66 @@
 
             // Show/hide no results message
             if (visibleCount === 0 && searchTerm !== '') {
-                noResults.style.display = 'block';
+                projectsNoResults.style.display = 'block';
             } else {
-                noResults.style.display = 'none';
+                projectsNoResults.style.display = 'none';
+            }
+        });
+
+        // Search functionality for outreach
+        const outreachSearch = document.getElementById('outreachSearch');
+        const outreachCards = document.querySelectorAll('.outreach-card[data-title]');
+        const outreachNoResults = document.getElementById('outreachNoResults');
+
+        outreachSearch.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            outreachCards.forEach(card => {
+                const title = card.getAttribute('data-title');
+                const isMatch = title.includes(searchTerm);
+                
+                if (isMatch) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Show/hide no results message
+            if (visibleCount === 0 && searchTerm !== '') {
+                outreachNoResults.style.display = 'block';
+            } else {
+                outreachNoResults.style.display = 'none';
             }
         });
 
         // Clear search when escape key is pressed
-        searchInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                this.value = '';
-                this.dispatchEvent(new Event('input'));
-                this.blur();
-            }
+        [projectSearch, outreachSearch].forEach(input => {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    this.value = '';
+                    this.dispatchEvent(new Event('input'));
+                    this.blur();
+                }
+            });
+
+            // Prevent search input clicks from collapsing the section
+            input.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
         });
+
+        // Prevent search container clicks from collapsing sections
+        document.querySelectorAll('.search-container').forEach(container => {
+            container.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Initialize sections on page load
+        document.addEventListener('DOMContentLoaded', initializeSections);
     </script>
 </body>
 </html>
