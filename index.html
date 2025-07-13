@@ -729,124 +729,174 @@
     </div>
 
     <script>
-        // Toggle section collapse/expand
-        function toggleSection(sectionId) {
-            var section = document.getElementById(sectionId);
-            var isCollapsed = section.classList.contains('collapsed');
-            
-            if (isCollapsed) {
-                section.classList.remove('collapsed');
-                var content = section.querySelector('.section-content');
-                content.style.maxHeight = content.scrollHeight + 'px';
-            } else {
-                section.classList.add('collapsed');
-                var content = section.querySelector('.section-content');
-                content.style.maxHeight = '0px';
-            }
-        }
-
-        // Initialize sections with proper max-height
-        function initializeSections() {
-            var sections = document.querySelectorAll('.collapsible-section');
-            for (var i = 0; i < sections.length; i++) {
-                var section = sections[i];
-                var content = section.querySelector('.section-content');
-                if (!section.classList.contains('collapsed')) {
-                    content.style.maxHeight = content.scrollHeight + 'px';
+        // CV Data Functions
+        function loadCVData() {
+            try {
+                if (window.fs && window.fs.readFile) {
+                    return window.fs.readFile('cv.tex', { encoding: 'utf8' }).then(function(cvContent) {
+                        return parseCVContent(cvContent);
+                    }).catch(function(error) {
+                        console.log('Could not load cv.tex file, using fallback data');
+                        return getFallbackCVData();
+                    });
+                } else {
+                    console.log('File system not available, using fallback data');
+                    return Promise.resolve(getFallbackCVData());
                 }
+            } catch (error) {
+                console.log('Error loading CV data, using fallback');
+                return Promise.resolve(getFallbackCVData());
             }
         }
 
-        // Search functionality
-        function initializeSearch() {
-            var projectSearch = document.getElementById('projectSearch');
-            var projectCards = document.querySelectorAll('.project-card[data-title]');
-            var projectsNoResults = document.getElementById('projectsNoResults');
+        function parseCVContent(content) {
+            var cvData = {
+                employment: [],
+                education: [],
+                publications: [],
+                recognitions: [],
+                languages: [],
+                certifications: []
+            };
 
-            if (projectSearch) {
-                projectSearch.addEventListener('input', function() {
-                    var searchTerm = this.value.toLowerCase().trim();
-                    var visibleCount = 0;
-
-                    for (var i = 0; i < projectCards.length; i++) {
-                        var card = projectCards[i];
-                        var title = card.getAttribute('data-title');
-                        var isMatch = title.includes(searchTerm);
+            // Parse Employment section
+            var employmentMatch = content.match(/\\section\*\{EMPLOYMENT\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
+            if (employmentMatch) {
+                var employmentItems = employmentMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
+                if (employmentItems) {
+                    for (var i = 0; i < employmentItems.length; i++) {
+                        var item = employmentItems[i];
+                        var titleMatch = item.match(/\\textbf\{([^}]+)\}/);
+                        var roleMatch = item.match(/\\textbf\{[^}]+\},\s*([^\n\\]+)/);
+                        var dateMatch = item.match(/\\textit\{([^}]+)\}/);
                         
-                        if (isMatch) {
-                            card.classList.remove('hidden');
-                            visibleCount++;
-                        } else {
-                            card.classList.add('hidden');
+                        if (titleMatch && roleMatch) {
+                            cvData.employment.push({
+                                title: titleMatch[1],
+                                role: roleMatch[1],
+                                date: dateMatch ? dateMatch[1] : ''
+                            });
                         }
                     }
-
-                    if (visibleCount === 0 && searchTerm !== '') {
-                        projectsNoResults.style.display = 'block';
-                    } else {
-                        projectsNoResults.style.display = 'none';
-                    }
-                });
-            }
-
-            var outreachSearch = document.getElementById('outreachSearch');
-            var outreachCards = document.querySelectorAll('.outreach-card[data-title]');
-            var outreachNoResults = document.getElementById('outreachNoResults');
-
-            if (outreachSearch) {
-                outreachSearch.addEventListener('input', function() {
-                    var searchTerm = this.value.toLowerCase().trim();
-                    var visibleCount = 0;
-
-                    for (var i = 0; i < outreachCards.length; i++) {
-                        var card = outreachCards[i];
-                        var title = card.getAttribute('data-title');
-                        var isMatch = title.includes(searchTerm);
-                        
-                        if (isMatch) {
-                            card.classList.remove('hidden');
-                            visibleCount++;
-                        } else {
-                            card.classList.add('hidden');
-                        }
-                    }
-
-                    if (visibleCount === 0 && searchTerm !== '') {
-                        outreachNoResults.style.display = 'block';
-                    } else {
-                        outreachNoResults.style.display = 'none';
-                    }
-                });
-            }
-
-            // Clear search when escape key is pressed
-            var searchInputs = [projectSearch, outreachSearch];
-            for (var i = 0; i < searchInputs.length; i++) {
-                var input = searchInputs[i];
-                if (input) {
-                    input.addEventListener('keydown', function(e) {
-                        if (e.key === 'Escape') {
-                            this.value = '';
-                            this.dispatchEvent(new Event('input'));
-                            this.blur();
-                        }
-                    });
-
-                    input.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                    });
                 }
             }
 
-            var searchContainers = document.querySelectorAll('.search-container');
-            for (var i = 0; i < searchContainers.length; i++) {
-                searchContainers[i].addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
+            // Parse Education section
+            var educationMatch = content.match(/\\section\*\{EDUCATION\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
+            if (educationMatch) {
+                var educationItems = educationMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
+                if (educationItems) {
+                    for (var i = 0; i < educationItems.length; i++) {
+                        var item = educationItems[i];
+                        var titleMatch = item.match(/\\textbf\{([^}]+)\}/);
+                        var roleMatch = item.match(/\\\\[\s]*([^\n\\]+)/);
+                        var dateMatch = item.match(/\\textit\{([^}]+)\}/);
+                        
+                        if (titleMatch) {
+                            cvData.education.push({
+                                title: titleMatch[1],
+                                role: roleMatch ? roleMatch[1].trim() : '',
+                                date: dateMatch ? dateMatch[1] : ''
+                            });
+                        }
+                    }
+                }
             }
+
+            // Parse Publications & Writings section
+            var publicationsMatch = content.match(/\\section\*\{PUBLICATIONS & WRITINGS\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
+            if (publicationsMatch) {
+                var publicationItems = publicationsMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
+                if (publicationItems) {
+                    for (var i = 0; i < publicationItems.length; i++) {
+                        var item = publicationItems[i];
+                        var titleMatch = item.match(/\\textbf\{([^}]+)\}/);
+                        var authorMatch = item.match(/\\\\[\s]*([^\\]+?)\\\\[\s]*\\href/);
+                        var linkMatch = item.match(/\\href\{([^}]*)\}\{[^}]*\\faLink\\[^}]*([^}]+)\}/);
+                        var dateMatch = item.match(/·\s*([A-Z][a-z]{2}\s+\d{4})/);
+                        
+                        if (titleMatch) {
+                            cvData.publications.push({
+                                title: titleMatch[1],
+                                author: authorMatch ? authorMatch[1].trim() : '',
+                                link: linkMatch ? linkMatch[1] : '',
+                                linkText: linkMatch ? linkMatch[2].trim() : '',
+                                date: dateMatch ? dateMatch[1] : ''
+                            });
+                        }
+                    }
+                }
+            }
+
+            // Parse Recognitions section
+            var recognitionsMatch = content.match(/\\section\*\{RECOGNITIONS\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
+            if (recognitionsMatch) {
+                var recognitionItems = recognitionsMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
+                if (recognitionItems) {
+                    for (var i = 0; i < recognitionItems.length; i++) {
+                        var item = recognitionItems[i];
+                        var titleMatch = item.match(/\\textbf\{([^}]+)\}/);
+                        var roleMatch = item.match(/\\textbf\{[^}]+\}\s+([^\n\\]+)/);
+                        var dateMatch = item.match(/([A-Z][a-z]{2}\s+\d{4})/);
+                        
+                        if (titleMatch) {
+                            cvData.recognitions.push({
+                                title: titleMatch[1],
+                                role: roleMatch ? roleMatch[1].trim() : '',
+                                date: dateMatch ? dateMatch[1] : ''
+                            });
+                        }
+                    }
+                }
+            }
+
+            // Parse Languages section
+            var languagesMatch = content.match(/\\section\*\{LANGUAGES\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
+            if (languagesMatch) {
+                var languageItems = languagesMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
+                if (languageItems) {
+                    for (var i = 0; i < languageItems.length; i++) {
+                        var item = languageItems[i];
+                        var titleMatch = item.match(/\\textbf\{([^}]+)\}/);
+                        var roleMatch = item.match(/·\s*\(([^)]+)\)/);
+                        
+                        if (titleMatch) {
+                            cvData.languages.push({
+                                title: titleMatch[1],
+                                role: roleMatch ? roleMatch[1] : '',
+                                date: ''
+                            });
+                        }
+                    }
+                }
+            }
+
+            // Parse Certifications section
+            var certificationsMatch = content.match(/\\section\*\{CERTIFICATIONS\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
+            if (certificationsMatch) {
+                var certificationItems = certificationsMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
+                if (certificationItems) {
+                    for (var i = 0; i < certificationItems.length; i++) {
+                        var item = certificationItems[i];
+                        var titleMatch = item.match(/\\textbf\{([^}]+)\}/);
+                        var roleMatch = item.match(/\\\\[\s]*([^\n·]+)/);
+                        var dateMatch = item.match(/·\s*Issued\s+([A-Z][a-z]{2}\s+\d{4})/);
+                        
+                        if (titleMatch) {
+                            cvData.certifications.push({
+                                title: titleMatch[1],
+                                role: roleMatch ? roleMatch[1].trim() : '',
+                                date: dateMatch ? 'Issued ' + dateMatch[1] : ''
+                            });
+                        }
+                    }
+                }
+            }
+
+            return cvData;
         }
 
-        // CV Data
+        // Fallback CV Data
         function getFallbackCVData() {
             return {
                 employment: [
@@ -1013,6 +1063,123 @@
                     }
                 ]
             };
+        }
+
+        // Toggle section collapse/expand
+        function toggleSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            var isCollapsed = section.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                section.classList.remove('collapsed');
+                var content = section.querySelector('.section-content');
+                content.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                section.classList.add('collapsed');
+                var content = section.querySelector('.section-content');
+                content.style.maxHeight = '0px';
+            }
+        }
+
+        // Initialize sections with proper max-height
+        function initializeSections() {
+            var sections = document.querySelectorAll('.collapsible-section');
+            for (var i = 0; i < sections.length; i++) {
+                var section = sections[i];
+                var content = section.querySelector('.section-content');
+                if (!section.classList.contains('collapsed')) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            }
+        }
+
+        // Search functionality
+        function initializeSearch() {
+            var projectSearch = document.getElementById('projectSearch');
+            var projectCards = document.querySelectorAll('.project-card[data-title]');
+            var projectsNoResults = document.getElementById('projectsNoResults');
+
+            if (projectSearch) {
+                projectSearch.addEventListener('input', function() {
+                    var searchTerm = this.value.toLowerCase().trim();
+                    var visibleCount = 0;
+
+                    for (var i = 0; i < projectCards.length; i++) {
+                        var card = projectCards[i];
+                        var title = card.getAttribute('data-title');
+                        var isMatch = title.includes(searchTerm);
+                        
+                        if (isMatch) {
+                            card.classList.remove('hidden');
+                            visibleCount++;
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    }
+
+                    if (visibleCount === 0 && searchTerm !== '') {
+                        projectsNoResults.style.display = 'block';
+                    } else {
+                        projectsNoResults.style.display = 'none';
+                    }
+                });
+            }
+
+            var outreachSearch = document.getElementById('outreachSearch');
+            var outreachCards = document.querySelectorAll('.outreach-card[data-title]');
+            var outreachNoResults = document.getElementById('outreachNoResults');
+
+            if (outreachSearch) {
+                outreachSearch.addEventListener('input', function() {
+                    var searchTerm = this.value.toLowerCase().trim();
+                    var visibleCount = 0;
+
+                    for (var i = 0; i < outreachCards.length; i++) {
+                        var card = outreachCards[i];
+                        var title = card.getAttribute('data-title');
+                        var isMatch = title.includes(searchTerm);
+                        
+                        if (isMatch) {
+                            card.classList.remove('hidden');
+                            visibleCount++;
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    }
+
+                    if (visibleCount === 0 && searchTerm !== '') {
+                        outreachNoResults.style.display = 'block';
+                    } else {
+                        outreachNoResults.style.display = 'none';
+                    }
+                });
+            }
+
+            // Clear search when escape key is pressed
+            var searchInputs = [projectSearch, outreachSearch];
+            for (var i = 0; i < searchInputs.length; i++) {
+                var input = searchInputs[i];
+                if (input) {
+                    input.addEventListener('keydown', function(e) {
+                        if (e.key === 'Escape') {
+                            this.value = '';
+                            this.dispatchEvent(new Event('input'));
+                            this.blur();
+                        }
+                    });
+
+                    input.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                }
+            }
+
+            var searchContainers = document.querySelectorAll('.search-container');
+            for (var i = 0; i < searchContainers.length; i++) {
+                searchContainers[i].addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
         }
 
         function renderCVSection(sectionId, data, type) {
