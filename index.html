@@ -1055,14 +1055,24 @@
         }
 
         function initializeCV() {
-            var cvData = getFallbackCVData();
-            
-            renderCVSection('employmentContent', cvData.employment, 'standard');
-            renderCVSection('educationContent', cvData.education, 'standard');
-            renderCVSection('publicationsContent', cvData.publications, 'publications');
-            renderCVSection('recognitionsContent', cvData.recognitions, 'standard');
-            renderCVSection('languagesContent', cvData.languages, 'standard');
-            renderCVSection('certificationsContent', cvData.certifications, 'standard');
+            loadCVData().then(function(cvData) {
+                renderCVSection('employmentContent', cvData.employment, 'standard');
+                renderCVSection('educationContent', cvData.education, 'standard');
+                renderCVSection('publicationsContent', cvData.publications, 'publications');
+                renderCVSection('recognitionsContent', cvData.recognitions, 'standard');
+                renderCVSection('languagesContent', cvData.languages, 'standard');
+                renderCVSection('certificationsContent', cvData.certifications, 'standard');
+            }).catch(function(error) {
+                console.log('Error initializing CV:', error);
+                // Fallback to static data if Promise fails
+                var cvData = getFallbackCVData();
+                renderCVSection('employmentContent', cvData.employment, 'standard');
+                renderCVSection('educationContent', cvData.education, 'standard');
+                renderCVSection('publicationsContent', cvData.publications, 'publications');
+                renderCVSection('recognitionsContent', cvData.recognitions, 'standard');
+                renderCVSection('languagesContent', cvData.languages, 'standard');
+                renderCVSection('certificationsContent', cvData.certifications, 'standard');
+            });
         }
 
         // Initialize everything on page load
