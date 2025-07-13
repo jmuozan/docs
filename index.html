@@ -371,17 +371,6 @@
             text-decoration: underline;
         }
 
-        /* Remove old CV styles */
-        .cv-grid {
-            display: none;
-        }
-
-        .cv-subsection,
-        .cv-subsection-header,
-        .cv-subsection-content {
-            display: none;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -424,19 +413,6 @@
 
             .search-input {
                 width: 100%;
-            }
-
-            .cv-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .cv-subsection-header {
-                padding: 0.75rem 1rem;
-            }
-
-            .cv-subsection.expanded .cv-subsection-content {
-                padding: 0.75rem 1rem;
             }
 
             .cv-container {
@@ -755,274 +731,125 @@
     <script>
         // Toggle section collapse/expand
         function toggleSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            const isCollapsed = section.classList.contains('collapsed');
+            var section = document.getElementById(sectionId);
+            var isCollapsed = section.classList.contains('collapsed');
             
             if (isCollapsed) {
                 section.classList.remove('collapsed');
-                // Set max-height to allow transition
-                const content = section.querySelector('.section-content');
+                var content = section.querySelector('.section-content');
                 content.style.maxHeight = content.scrollHeight + 'px';
             } else {
                 section.classList.add('collapsed');
-                const content = section.querySelector('.section-content');
+                var content = section.querySelector('.section-content');
                 content.style.maxHeight = '0px';
             }
         }
 
         // Initialize sections with proper max-height
         function initializeSections() {
-            const sections = document.querySelectorAll('.collapsible-section');
-            sections.forEach(section => {
-                const content = section.querySelector('.section-content');
+            var sections = document.querySelectorAll('.collapsible-section');
+            for (var i = 0; i < sections.length; i++) {
+                var section = sections[i];
+                var content = section.querySelector('.section-content');
                 if (!section.classList.contains('collapsed')) {
                     content.style.maxHeight = content.scrollHeight + 'px';
                 }
-            });
-        }
-
-        // Search functionality for projects
-        const projectSearch = document.getElementById('projectSearch');
-        const projectCards = document.querySelectorAll('.project-card[data-title]');
-        const projectsNoResults = document.getElementById('projectsNoResults');
-
-        projectSearch.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            let visibleCount = 0;
-
-            projectCards.forEach(card => {
-                const title = card.getAttribute('data-title');
-                const isMatch = title.includes(searchTerm);
-                
-                if (isMatch) {
-                    card.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-
-            // Show/hide no results message
-            if (visibleCount === 0 && searchTerm !== '') {
-                projectsNoResults.style.display = 'block';
-            } else {
-                projectsNoResults.style.display = 'none';
-            }
-        });
-
-        // Search functionality for outreach
-        const outreachSearch = document.getElementById('outreachSearch');
-        const outreachCards = document.querySelectorAll('.outreach-card[data-title]');
-        const outreachNoResults = document.getElementById('outreachNoResults');
-
-        outreachSearch.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
-            let visibleCount = 0;
-
-            outreachCards.forEach(card => {
-                const title = card.getAttribute('data-title');
-                const isMatch = title.includes(searchTerm);
-                
-                if (isMatch) {
-                    card.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-
-            // Show/hide no results message
-            if (visibleCount === 0 && searchTerm !== '') {
-                outreachNoResults.style.display = 'block';
-            } else {
-                outreachNoResults.style.display = 'none';
-            }
-        });
-
-        // Clear search when escape key is pressed
-        [projectSearch, outreachSearch].forEach(input => {
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    this.value = '';
-                    this.dispatchEvent(new Event('input'));
-                    this.blur();
-                }
-            });
-
-            // Prevent search input clicks from collapsing the section
-            input.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-        });
-
-        // Prevent search container clicks from collapsing sections
-        document.querySelectorAll('.search-container').forEach(container => {
-            container.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-        });
-
-        // CV Data Parser - reads from cv.tex file
-        async function loadCVData() {
-            try {
-                // Try to read the cv.tex file
-                const cvContent = await window.fs.readFile('cv.tex', { encoding: 'utf8' });
-                return parseCVContent(cvContent);
-            } catch (error) {
-                console.log('Could not load cv.tex file, using fallback data');
-                return getFallbackCVData();
             }
         }
 
-        function parseCVContent(content) {
-            const cvData = {
-                employment: [],
-                education: [],
-                publications: [],
-                recognitions: [],
-                languages: [],
-                certifications: []
-            };
+        // Search functionality
+        function initializeSearch() {
+            var projectSearch = document.getElementById('projectSearch');
+            var projectCards = document.querySelectorAll('.project-card[data-title]');
+            var projectsNoResults = document.getElementById('projectsNoResults');
 
-            // Parse Employment section
-            const employmentMatch = content.match(/\\section\*\{EMPLOYMENT\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
-            if (employmentMatch) {
-                const items = employmentMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
-                if (items) {
-                    items.forEach(item => {
-                        const titleMatch = item.match(/\\textbf\{([^}]+)\}/);
-                        const roleMatch = item.match(/\\textbf\{[^}]+\},\s*([^\n\\]+)/);
-                        const dateMatch = item.match(/\\textit\{([^}]+)\}/);
+            if (projectSearch) {
+                projectSearch.addEventListener('input', function() {
+                    var searchTerm = this.value.toLowerCase().trim();
+                    var visibleCount = 0;
+
+                    for (var i = 0; i < projectCards.length; i++) {
+                        var card = projectCards[i];
+                        var title = card.getAttribute('data-title');
+                        var isMatch = title.includes(searchTerm);
                         
-                        if (titleMatch && roleMatch) {
-                            cvData.employment.push({
-                                title: titleMatch[1],
-                                role: roleMatch[1],
-                                date: dateMatch ? dateMatch[1] : ''
-                            });
+                        if (isMatch) {
+                            card.classList.remove('hidden');
+                            visibleCount++;
+                        } else {
+                            card.classList.add('hidden');
                         }
+                    }
+
+                    if (visibleCount === 0 && searchTerm !== '') {
+                        projectsNoResults.style.display = 'block';
+                    } else {
+                        projectsNoResults.style.display = 'none';
+                    }
+                });
+            }
+
+            var outreachSearch = document.getElementById('outreachSearch');
+            var outreachCards = document.querySelectorAll('.outreach-card[data-title]');
+            var outreachNoResults = document.getElementById('outreachNoResults');
+
+            if (outreachSearch) {
+                outreachSearch.addEventListener('input', function() {
+                    var searchTerm = this.value.toLowerCase().trim();
+                    var visibleCount = 0;
+
+                    for (var i = 0; i < outreachCards.length; i++) {
+                        var card = outreachCards[i];
+                        var title = card.getAttribute('data-title');
+                        var isMatch = title.includes(searchTerm);
+                        
+                        if (isMatch) {
+                            card.classList.remove('hidden');
+                            visibleCount++;
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    }
+
+                    if (visibleCount === 0 && searchTerm !== '') {
+                        outreachNoResults.style.display = 'block';
+                    } else {
+                        outreachNoResults.style.display = 'none';
+                    }
+                });
+            }
+
+            // Clear search when escape key is pressed
+            var searchInputs = [projectSearch, outreachSearch];
+            for (var i = 0; i < searchInputs.length; i++) {
+                var input = searchInputs[i];
+                if (input) {
+                    input.addEventListener('keydown', function(e) {
+                        if (e.key === 'Escape') {
+                            this.value = '';
+                            this.dispatchEvent(new Event('input'));
+                            this.blur();
+                        }
+                    });
+
+                    input.addEventListener('click', function(e) {
+                        e.stopPropagation();
                     });
                 }
             }
 
-            // Parse Education section
-            const educationMatch = content.match(/\\section\*\{EDUCATION\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
-            if (educationMatch) {
-                const items = educationMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
-                if (items) {
-                    items.forEach(item => {
-                        const titleMatch = item.match(/\\textbf\{([^}]+)\}/);
-                        const roleMatch = item.match(/\\\\[\s]*([^\n\\]+)/);
-                        const dateMatch = item.match(/\\textit\{([^}]+)\}/);
-                        
-                        if (titleMatch) {
-                            cvData.education.push({
-                                title: titleMatch[1],
-                                role: roleMatch ? roleMatch[1].trim() : '',
-                                date: dateMatch ? dateMatch[1] : ''
-                            });
-                        }
-                    });
-                }
+            var searchContainers = document.querySelectorAll('.search-container');
+            for (var i = 0; i < searchContainers.length; i++) {
+                searchContainers[i].addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
             }
-
-            // Parse Publications & Writings section
-            const publicationsMatch = content.match(/\\section\*\{PUBLICATIONS & WRITINGS\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
-            if (publicationsMatch) {
-                const items = publicationsMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
-                if (items) {
-                    items.forEach(item => {
-                        const titleMatch = item.match(/\\textbf\{([^}]+)\}/);
-                        const authorMatch = item.match(/\\\\[\s]*([^\\]+?)\\\\[\s]*\\href/);
-                        const linkMatch = item.match(/\\href\{([^}]*)\}\{[^}]*\\faLink\\[^}]*([^}]+)\}/);
-                        const dateMatch = item.match(/·\s*([A-Z][a-z]{2}\s+\d{4})/);
-                        
-                        if (titleMatch) {
-                            cvData.publications.push({
-                                title: titleMatch[1],
-                                author: authorMatch ? authorMatch[1].trim() : '',
-                                link: linkMatch ? linkMatch[1] : '',
-                                linkText: linkMatch ? linkMatch[2].trim() : '',
-                                date: dateMatch ? dateMatch[1] : ''
-                            });
-                        }
-                    });
-                }
-            }
-
-            // Parse Recognitions section
-            const recognitionsMatch = content.match(/\\section\*\{RECOGNITIONS\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
-            if (recognitionsMatch) {
-                const items = recognitionsMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
-                if (items) {
-                    items.forEach(item => {
-                        const titleMatch = item.match(/\\textbf\{([^}]+)\}/);
-                        const roleMatch = item.match(/\\textbf\{[^}]+\}\s+([^\n\\]+)/);
-                        const dateMatch = item.match(/([A-Z][a-z]{2}\s+\d{4})/);
-                        
-                        if (titleMatch) {
-                            cvData.recognitions.push({
-                                title: titleMatch[1],
-                                role: roleMatch ? roleMatch[1].trim() : '',
-                                date: dateMatch ? dateMatch[1] : ''
-                            });
-                        }
-                    });
-                }
-            }
-
-            // Parse Languages section
-            const languagesMatch = content.match(/\\section\*\{LANGUAGES\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
-            if (languagesMatch) {
-                const items = languagesMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
-                if (items) {
-                    items.forEach(item => {
-                        const titleMatch = item.match(/\\textbf\{([^}]+)\}/);
-                        const roleMatch = item.match(/·\s*\(([^)]+)\)/);
-                        
-                        if (titleMatch) {
-                            cvData.languages.push({
-                                title: titleMatch[1],
-                                role: roleMatch ? roleMatch[1] : '',
-                                date: ''
-                            });
-                        }
-                    });
-                }
-            }
-
-            // Parse Certifications section
-            const certificationsMatch = content.match(/\\section\*\{CERTIFICATIONS\}[\s\S]*?\\begin\{itemize\}([\s\S]*?)\\end\{itemize\}/);
-            if (certificationsMatch) {
-                const items = certificationsMatch[1].match(/\\item\s+\\textbf\{[^}]+\}[\s\S]*?(?=\\item|$)/g);
-                if (items) {
-                    items.forEach(item => {
-                        const titleMatch = item.match(/\\textbf\{([^}]+)\}/);
-                        const roleMatch = item.match(/\\\\[\s]*([^\n·]+)/);
-                        const dateMatch = item.match(/·\s*Issued\s+([A-Z][a-z]{2}\s+\d{4})/);
-                        
-                        if (titleMatch) {
-                            cvData.certifications.push({
-                                title: titleMatch[1],
-                                role: roleMatch ? roleMatch[1].trim() : '',
-                                date: dateMatch ? `Issued ${dateMatch[1]}` : ''
-                            });
-                        }
-                    });
-                }
-            }
-
-            return cvData;
         }
 
+        // CV Data
         function getFallbackCVData() {
             return {
                 employment: [
-                    {
-                        title: "Synergetic Operas",
-                        role: "Computation Designer",
-                        date: "Sep 2024 - Present"
-                    },
                     {
                         title: "Institut Bellvitge",
                         role: "STEM Teacher",
@@ -1189,43 +1016,47 @@
         }
 
         function renderCVSection(sectionId, data, type) {
-            const section = document.getElementById(sectionId);
+            var section = document.getElementById(sectionId);
             if (!section) return;
 
-            let html = '';
-            data.forEach(item => {
+            var html = '';
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
                 if (type === 'publications') {
-                    html += `
-                        <div class="cv-item">
-                            <div class="cv-arrow">→</div>
-                            <div class="cv-details">
-                                <div class="cv-title">${item.title}</div>
-                                <div class="cv-author">${item.author}</div>
-${item.link ? `<div class="cv-link"><a href="${item.link}" target="_blank">${item.linkText}</a> · ${item.date}</div>` : `<div class="cv-date">${item.date}</div>`}
-                            </div>
-                        </div>
-                    `;
+                    var linkHtml = '';
+                    if (item.link) {
+                        linkHtml = '<div class="cv-link"><a href="' + item.link + '" target="_blank">' + item.linkText + '</a> · ' + item.date + '</div>';
+                    } else {
+                        linkHtml = '<div class="cv-date">' + item.date + '</div>';
+                    }
+                    
+                    html += '<div class="cv-item">' +
+                        '<div class="cv-arrow">→</div>' +
+                        '<div class="cv-details">' +
+                        '<div class="cv-title">' + item.title + '</div>' +
+                        '<div class="cv-author">' + item.author + '</div>' +
+                        linkHtml +
+                        '</div>' +
+                        '</div>';
                 } else {
-                    html += `
-                        <div class="cv-item">
-                            <div class="cv-arrow">→</div>
-                            <div class="cv-details">
-                                <div class="cv-title">${item.title}</div>
-                                <div class="cv-role">${item.role}</div>
-                                ${item.date ? `<div class="cv-date">${item.date}</div>` : ''}
-                            </div>
-                        </div>
-                    `;
+                    var dateHtml = item.date ? '<div class="cv-date">' + item.date + '</div>' : '';
+                    
+                    html += '<div class="cv-item">' +
+                        '<div class="cv-arrow">→</div>' +
+                        '<div class="cv-details">' +
+                        '<div class="cv-title">' + item.title + '</div>' +
+                        '<div class="cv-role">' + item.role + '</div>' +
+                        dateHtml +
+                        '</div>' +
+                        '</div>';
                 }
-            });
+            }
             section.innerHTML = html;
         }
 
-        // Initialize CV data on page load
-        async function initializeCV() {
-            const cvData = await loadCVData();
+        function initializeCV() {
+            var cvData = getFallbackCVData();
             
-            // Render each section
             renderCVSection('employmentContent', cvData.employment, 'standard');
             renderCVSection('educationContent', cvData.education, 'standard');
             renderCVSection('publicationsContent', cvData.publications, 'publications');
@@ -1234,53 +1065,12 @@ ${item.link ? `<div class="cv-link"><a href="${item.link}" target="_blank">${ite
             renderCVSection('certificationsContent', cvData.certifications, 'standard');
         }
 
-        // Initialize sections and CV data on page load
+        // Initialize everything on page load
         document.addEventListener('DOMContentLoaded', function() {
             initializeSections();
+            initializeSearch();
             initializeCV();
-        });;
-
-            let html = '';
-            data.forEach(item => {
-                if (type === 'publications') {
-                    html += `
-                        <div class="cv-item">
-                            <div class="cv-arrow">→</div>
-                            <div class="cv-details">
-                                <div class="cv-title">${item.title}</div>
-                                <div class="cv-author">${item.author}</div>
-                                ${item.link ? `<div class="cv-link"><a href="${item.link}" target="_blank">${item.linkText}</a> · ${item.date}</div>` : ''}
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    html += `
-                        <div class="cv-item">
-                            <div class="cv-arrow">→</div>
-                            <div class="cv-details">
-                                <div class="cv-title">${item.title}</div>
-                                <div class="cv-role">${item.role}</div>
-                                <div class="cv-date">${item.date}</div>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-            section.innerHTML = html;
-        }
-
-        // Initialize CV data on page load
-        async function initializeCV() {
-            const cvData = await loadCVData();
-            
-            // Render each section
-            renderCVSection('employmentContent', cvData.employment, 'standard');
-            renderCVSection('educationContent', cvData.education, 'standard');
-            renderCVSection('publicationsContent', cvData.publications, 'publications');
-            renderCVSection('recognitionsContent', cvData.recognitions, 'standard');
-            renderCVSection('languagesContent', cvData.languages, 'standard');
-            renderCVSection('certificationsContent', cvData.certifications, 'standard');
-        }
+        });
     </script>
 </body>
 </html>
