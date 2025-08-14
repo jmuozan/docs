@@ -706,6 +706,11 @@
                             <!-- Content will be loaded dynamically from cv.tex -->
                         </div>
 
+                        <h3 class="cv-column-title">Outreach</h3>
+                        <div class="cv-content" id="outreachContent">
+                            <!-- Content will be loaded dynamically from cv.tex -->
+                        </div>
+
                         <h3 class="cv-column-title">Recognitions</h3>
                         <div class="cv-content" id="recognitionsContent">
                             <!-- Content will be loaded dynamically from cv.tex -->
@@ -971,6 +976,22 @@
                         date: "Sep 2023"
                     }
                 ],
+                outreach: [
+                    {
+                        title: "FAB25 Czechia: Bridge the Gap",
+                        author: "Presented paper 'Embodied Knowledge in Digital Spaces: Towards Human-Centered Fabrication Formats'",
+                        link: "https://fab25.fabevent.org/",
+                        linkText: "fab25.org",
+                        date: "Jul 2025"
+                    },
+                    {
+                        title: "La Galería by Lastcrit",
+                        author: "Conducted workshop \"Neo Artesanía: Creando puente entre lo físico y digital\"",
+                        link: "https://www.instagram.com/p/DIePpM6ts27/",
+                        linkText: "@lagaleria_by_lastcrit",
+                        date: "Apr 2025"
+                    }
+                ],
                 recognitions: [
                     {
                         title: "Mención de Honor craftinnova",
@@ -1226,6 +1247,7 @@
                 renderCVSection('employmentContent', cvData.employment, 'standard');
                 renderCVSection('educationContent', cvData.education, 'standard');
                 renderCVSection('publicationsContent', cvData.publications, 'publications');
+                renderCVSection('outreachContent', cvData.outreach, 'publications');
                 renderCVSection('recognitionsContent', cvData.recognitions, 'standard');
                 renderCVSection('languagesContent', cvData.languages, 'standard');
                 renderCVSection('certificationsContent', cvData.certifications, 'standard');
@@ -1236,6 +1258,7 @@
                 renderCVSection('employmentContent', cvData.employment, 'standard');
                 renderCVSection('educationContent', cvData.education, 'standard');
                 renderCVSection('publicationsContent', cvData.publications, 'publications');
+                renderCVSection('outreachContent', cvData.outreach, 'publications');
                 renderCVSection('recognitionsContent', cvData.recognitions, 'standard');
                 renderCVSection('languagesContent', cvData.languages, 'standard');
                 renderCVSection('certificationsContent', cvData.certifications, 'standard');
