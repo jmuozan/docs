@@ -1,2 +1,2 @@
 # docs
-New website repo
+New website repository
