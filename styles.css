@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 40px;
+    color: #666;
+    text-align: left;
+}
+
+nav {
+    margin-top: 40px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    font-size: 1.1rem;
+    color: #000;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #666;
+}
