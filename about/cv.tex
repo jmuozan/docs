@@ -1,0 +1,199 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{fontawesome5} 
+\usepackage{xcolor} % For custom colors
+\usepackage{titlesec}
+
+% Configure hyperref - place this AFTER xcolor but BEFORE hyperref is loaded
+\definecolor{linkgray}{rgb}{0.4,0.4,0.4} % Define a gray color for links
+
+% Load hyperref with custom settings - ENABLE BOOKMARKS
+\usepackage[colorlinks=true, linkcolor=linkgray, urlcolor=linkgray, citecolor=linkgray, bookmarks=true, bookmarksopen=true, bookmarksnumbered=false, breaklinks=true, hidelinks=false, pdfstartview=FitV]{hyperref}
+
+% Format section headings
+\titleformat{\section}{\normalfont\bfseries}{\thesection}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{12pt}{6pt}
+
+% Remove page numbers
+\pagestyle{empty}
+
+\begin{document}
+
+% Header with contact information
+\begin{center}
+\textbf{\Large Jorge Muñoz Zanón}\\
+\vspace{0.1cm}
+Industrial Design Engineer / Computation Designer / Digital Fabrication Specialist / Teacher / Researcher\\
+València / Barcelona\\
+email: jmuozan@gmail.com\\
+\href{https://jmuozan.github.io/docs/}{jmuozan.docs}
+\end{center}
+
+% Add manual bookmark for header
+\pdfbookmark[0]{Jorge Muñoz Zanón - CV}{cv-header}
+
+% Employment section
+\pdfbookmark[1]{Employment}{employment}
+\section*{EMPLOYMENT}
+\begin{itemize}[leftmargin=*,label={},itemsep=6pt]
+    \item \textbf{Institut Pompeu Fabra}, Mechanical Production Teacher\\
+    Sep 2025 - Present
+
+
+    \item \textbf{Synergetic Operas}, Computation Designer\\
+    Sep 2024 - Jun 2025
+
+    \item \textbf{Institut Bellvitge}\\
+    May 2025 - Jun 2025 
+    
+    \item \textbf{Institut TIC de Barcelona}\\
+    Jan 2025 - May 2025 
+    
+    \item \textbf{Dafne+}, Ambassador\\
+    May 2024 - May 2025 
+    
+    \item \textbf{Universitat Politècnica de València (UPV)}, Pedro Duque laboratory technician\\
+    Apr 2023 - Jul 2023 
+    
+    \item \textbf{YUDesign UPV}, Member\\
+    May 2022 - Sep 2023 
+    
+    \item \textbf{YUDesign UPV}, Social Media Coordinator\\
+    Nov 2022 - Sep 2023 
+\end{itemize}
+
+% Education section
+\pdfbookmark[1]{Education}{education}
+\section*{EDUCATION}
+\begin{itemize}[leftmargin=*,label={},itemsep=6pt]
+
+    \item \textbf{Universidad Internacional de La Rioja (UNIR)}\\
+    Máster Universitario en Formación del Profesorado de Educación Secundaria Obligatoria y Bachillerato, Formación Profesional y Enseñanzas de Idiomas\\
+    Sep 2024 - Jul 2025 
+    
+    \item \textbf{Institute for Advanced Architecture of Catalonia (IAAC) / FAB LAB BCN / ELISAVA}\\
+    Master in Design for Emergent Futures\\
+    Oct 2023 - Sep 2025 
+    
+    \item \textbf{Universitat Politècnica de València (UPV)}\\
+    Bachelor's Degree in Industrial Design Engineering and Product Development\\
+    Sep 2019 - Sep 2023 
+\end{itemize}
+
+% Publications & Writtings section
+\pdfbookmark[1]{Publications \& Writings}{publications}
+\section*{PUBLICATIONS \& WRITINGS}
+\begin{itemize}[leftmargin=*,label={},itemsep=6pt]
+    \item \textbf{Embodied Knowledge in Digital Spaces: Towards Human-Centered Fabrication Formats}\\
+    Muñoz Zanón, J. (2025). Fab25 Czechia: Bridge the Gap.\\
+    \href{https://zenodo.org/records/15819470}{\faLink\ fab25.fabevent.org} · Jul 2025
+    \item \textbf{My experience as DAFNE+ Ambassador}\\
+    Muñoz Zanón, J. (2025). Fab Lab Barcelona.\\
+    \href{https://fablabbcn.org/blog/emergent-ideas/my-experience-as-dafne-ambassador}{\faLink\ fablabbcn.org} · May 2025
+    \item \textbf{Slow furniture: disseny d'un moble evolutiu, durador i emocional}\\
+    Muñoz Zanón, J. (2023). Universitat Politècnica de València.\\
+    \href{https://riunet.upv.es/handle/10251/197203}{\faLink\ riunet.upv.es} · Sep 2023
+\end{itemize}
+
+% Recognition section
+\pdfbookmark[1]{Recognitions}{recognitions}
+\section*{RECOGNITIONS}
+\begin{itemize}[leftmargin=*,label={},itemsep=2pt]
+    \item \textbf{Mención de Honor craftinnova} AI.RTISANSHIP: Preservando la Artesanía en la Era Digital\\
+    Craftinnova + Foacal · Dec 2024
+    
+    \item \textbf{Bronze Award - UNESCO International Innovation Design Awards (IIDA) \& Science for SDGs}\\
+    Innovation Contest 2023\\
+    UNESCO · Dec 2023
+    
+    \item \textbf{1st Place McDonald's Happy Meal for the Future Challenge}\\
+    McDonald's + DFGN + TMS · Jun 2023
+    
+    \item \textbf{Second prize in the 2023 TALENT-HOP Scholarship}\\
+    ALE-HOP · May 2023
+    
+    \item \textbf{Finalist of the 2022 Valencian Community Artisanship Awards in the Nous Talents category}\\
+    Generalitat Valenciana - Conselleria d'Economia Sostenible, Sectors Productius, Comerç i Treball · Dec 2022
+
+    \item \textbf{Second prize in the 2022 TALENT-HOP Scholarship}\\
+    ALE-HOP · May 2022
+\end{itemize}
+
+% Outreach section
+\pdfbookmark[1]{Outreach}{outreach}
+\section*{OUTREACH}
+\begin{itemize}[leftmargin=*,label={},itemsep=2pt]
+    \item \textbf{FAB25 Czechia: Bridge the Gap} -- Presented paper 'Embodied Knowledge in Digital Spaces: Towards Human-Centered Fabrication Formats'\\
+    \href{https://fab25.fabevent.org/}{\faGlobe\ fab25.org} · Jul 2025
+
+    \item \textbf{La Galería by Lastcrit} -- Conducted workshop ``Neo Artesanía: Creando puente entre lo físico y digital''\\
+    \href{https://www.instagram.com/p/DIePpM6ts27/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==}{\faInstagram\ @lagaleria\_by\_lastcrit} · Apr 2025
+    
+    \item \textbf{Distributed Design Platform} -- Featured in Online Exhibition as a Creative\\
+    \href{https://distributeddesign.eu/}{\faLink\ distributeddesign.eu} · Mar 2025
+    
+    \item \textbf{LLUM 25 BCN Festival Barcelona} -- Participated with installation: Miralls del Demà\\
+    \href{https://www.barcelona.cat/llumbcn/ca}{\faGlobe\ llumbcn} · Feb 2025
+    
+    \item \textbf{ELISAVA Seminar} -- Co-hosted 'Collective Intelligence' seminar for the Master in Design for Emergent Futures 2025\\
+    \href{https://mdef.fablabbcn.org/}{\faUniversity\ mdef.fablabbcn.org} · Jan 2025
+    
+    \item \textbf{Craftinnova V Encuentro Internacional de Oficios Artísticos e Innovación} -- Conducted workshop 'Nuevos métodos de aprendizaje artesano' representing Fab Lab Barcelona\\
+    \href{https://www.craftinnova.es/}{\faGlobe\ craftinnova.es} · Dec 2024
+    
+    \item \textbf{DAFNE+ Partner Symposium} -- Hosted talk 'The future of craftsmanship in the third digital revolution'\\
+    \href{https://dafneplus.eu/}{\faGlobe\ dafneplus.eu} · Jul 2024
+    
+    \item \textbf{infoSOS Journal} -- Featured in interview on sustainability: ``Jorge Muñoz: 'El concepto de muebles que pueden evolucionar y son sostenibles tiene un gran futuro'''\\
+    \href{https://infosos.es/jorge-munoz-el-concepto-de-muebles-que-pueden-evolucionar-y-son-sostenibles-tiene-un-gran-futuro/}{\faNewspaper[regular]\ infosos.es/interview} · Mar 2024
+    
+    \item \textbf{Universitat Politècnica de València (UPV)} -- Featured in interview: ``Premios UNESCO: La organización de las Naciones Unidas premia los proyectos de nueve estudiantes de la UPV para el diseño de un futuro sostenible''\\
+    \href{https://www.upv.es/noticias-upv/noticia-14469-premios-unesco-es.html}{\faUniversity\ upv.es/article} · Feb 2024
+    
+    \item \textbf{Centre d'Artesania de la Comunitat Valenciana} -- Featured in exhibition ``Premis Artesania Comunitat Valenciana 2022''\\
+    \href{https://www.centroartesaniacv.com/galeria/documentos/1672397676_1.PDF}{\faFilePdf \ Exhibition Catalog} · Oct 2022
+\end{itemize}
+
+% Languages section
+\pdfbookmark[1]{Languages}{languages}
+\section*{LANGUAGES}
+\begin{itemize}[leftmargin=*,label={},itemsep=2pt]
+    \item \textbf{Catalan/Valencian} · (Native)
+
+    \item \textbf{Spanish} · (Native)
+    
+    \item \textbf{English} · C1
+    
+    \item \textbf{Italian} · B1/B2 (Courses at Centro G. Leopardi not accredited)
+\end{itemize}
+
+% Certifications section
+\pdfbookmark[1]{Certifications}{certifications}
+\section*{CERTIFICATIONS}
+\begin{itemize}[leftmargin=*,label={},itemsep=2pt]
+    \item \textbf{Ad. Parametric Texture : Rhino + Gh Masterclass}\\
+    Cademy · Issued Nov 2024
+    
+    \item \textbf{Computational Design Workshop}\\
+    Cademy · Issued Sep 2024
+    
+    \item \textbf{Marketing Innovative Products and Services}\\
+    University of Maryland · Issued Apr 2024
+    
+    \item \textbf{Engineering Design for a Circular Economy}\\
+    Delft University of Technology · Issued Mar 2024
+    
+    \item \textbf{Data Science: Visualization}\\
+    Harvard University · Issued Jan 2024
+    
+    \item \textbf{Keyshot Rendering Masterclass}\\
+    Cademy · Issued Dec 2023
+    
+    \item \textbf{Grasshopper 3D Masterclass}\\
+    Cademy · Issued Nov 2023
+\end{itemize}
+
+\end{document}

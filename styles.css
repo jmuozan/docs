@@ -17,6 +17,7 @@ h1 {
     font-weight: 700;
     margin-bottom: 10px;
     text-align: left;
+    cursor: pointer;
 }
 
 .subtitle {
@@ -99,7 +100,20 @@ section {
 h2 {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.page-header {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: italic;
+    color: #666;
     text-align: left;
 }
 
