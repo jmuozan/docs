@@ -33,17 +33,59 @@ nav {
     display: flex;
     gap: 30px;
     flex-wrap: wrap;
+    align-items: center;
 }
 
-nav a {
+nav > a {
     font-size: 1.1rem;
     color: #000;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-nav a:hover {
+nav > a:hover {
     color: #666;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    font-size: 1.1rem;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px 0;
+    margin-top: 5px;
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 8px 20px;
+    font-size: 1rem;
+    color: #000;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
 }
 
 main {
