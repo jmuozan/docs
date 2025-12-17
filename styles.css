@@ -10,6 +10,67 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light-mode {
+    background-color: #fff;
+    color: #000;
+}
+
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .subtitle {
+    color: #999;
+}
+
+body.dark-mode nav > a {
+    color: #e0e0e0;
+}
+
+body.dark-mode nav > a:hover {
+    color: #999;
+}
+
+body.dark-mode .dropdown-toggle {
+    color: #e0e0e0;
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: #2a2a2a;
+    border-color: #444;
+}
+
+body.dark-mode .dropdown-menu a {
+    color: #e0e0e0;
+}
+
+body.dark-mode .dropdown-menu a:hover {
+    background-color: #333;
+}
+
+body.dark-mode .grid-item img {
+    background-color: #2a2a2a;
+}
+
+body.dark-mode .grid-content .description {
+    color: #ccc;
+}
+
+body.dark-mode .grid-content .date {
+    color: #777;
+}
+
+body.dark-mode .page-subtitle {
+    color: #999;
+}
+
+body.dark-mode .about-content {
+    background-color: #2a2a2a;
+    border-color: #444;
 }
 
 h1 {
@@ -87,6 +148,19 @@ nav > a:hover {
 
 .dropdown-menu a:hover {
     background-color: #f0f0f0;
+}
+
+.theme-toggle {
+    font-size: 1.3rem;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    margin-left: auto;
+}
+
+.theme-toggle:hover {
+    opacity: 0.7;
 }
 
 main {
@@ -170,4 +244,49 @@ h2 {
     font-size: 1rem;
     line-height: 1.8;
     margin-bottom: 15px;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-bio {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+.about-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 40px auto;
+    display: block;
+    border-radius: 8px;
+}
+
+.cv-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.cv-button:hover {
+    background-color: #333;
+}
+
+body.dark-mode .cv-button {
+    background-color: #fff;
+    color: #000;
+}
+
+body.dark-mode .cv-button:hover {
+    background-color: #e0e0e0;
 }

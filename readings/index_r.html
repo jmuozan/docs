@@ -12,31 +12,32 @@
 <body>
     <header class="main-header">
         <a href="../index.html" style="text-decoration: none; color: inherit;">
-            <h1>Jorge Muñoz Docs</h1>
+            <h1 data-i18n="siteTitle">Jorge Muñoz Docs</h1>
         </a>
-        <p class="subtitle">Documentation website of the stuff that I do</p>
+        <p class="subtitle" data-i18n="siteSubtitle">Documentation website of the stuff that I do</p>
     </header>
 
     <nav>
         <div class="dropdown">
-            <a href="#" class="dropdown-toggle">Language</a>
+            <a href="#" class="dropdown-toggle" data-i18n="navLanguage">Language</a>
             <div class="dropdown-menu">
                 <a href="?lang=va">Valencià</a>
                 <a href="?lang=es">Castellano</a>
                 <a href="?lang=en">English</a>
-                <a href="?lang=it">Italian</a>
+                <a href="?lang=it">Italiano</a>
             </div>
         </div>
-        <a href="../projects/index_p.html">Projects</a>
-        <a href="../about/index_a.html">About</a>
-        <a href="../writings/index_w.html">Writings</a>
-        <a href="../news/index_n.html">News</a>
-        <a href="../readings/index_r.html">Readings</a>
+        <a href="../projects/index_p.html" data-i18n="navProjects">Projects</a>
+        <a href="../about/index_a.html" data-i18n="navAbout">About</a>
+        <a href="../writings/index_w.html" data-i18n="navWritings">Writings</a>
+        <a href="../news/index_n.html" data-i18n="navNews">News</a>
+        <a href="../readings/index_r.html" data-i18n="navReadings">Readings</a>
+        <a href="#" id="theme-toggle" class="theme-toggle">🌙</a>
     </nav>
 
     <header class="page-header">
-        <h2>Readings</h2>
-        <p class="page-subtitle">Books and articles I've found interesting</p>
+        <h2 data-i18n="readingsTitle">Readings</h2>
+        <p class="page-subtitle" data-i18n="readingsSubtitle">Books and articles I've found interesting</p>
     </header>
 
     <main>
@@ -44,6 +45,7 @@
 
         </div>
     </main>
+    <script src="../translations.js"></script>
     <script src="../script.js"></script>
 </body>
 </html>

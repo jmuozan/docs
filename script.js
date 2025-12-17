@@ -1,3 +1,74 @@
+// Language Management
+let currentLanguage = localStorage.getItem('language') || 'en';
+
+function setLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('language', lang);
+    updatePageLanguage();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('lang', lang);
+    const newUrl = window.location.pathname + '?' + urlParams.toString();
+    window.history.replaceState({}, '', newUrl);
+}
+
+function updatePageLanguage() {
+    if (typeof translations === 'undefined') return;
+
+    const trans = translations[currentLanguage];
+    if (!trans) return;
+
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (trans[key]) {
+            element.textContent = trans[key];
+        }
+    });
+}
+
+function initLanguage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get('lang');
+
+    if (langParam && translations[langParam]) {
+        currentLanguage = langParam;
+        localStorage.setItem('language', langParam);
+    }
+
+    document.querySelectorAll('.dropdown-menu a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lang = this.getAttribute('href').split('=')[1];
+            setLanguage(lang);
+        });
+    });
+
+    updatePageLanguage();
+}
+
+// Theme Management
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.classList.add(savedTheme + '-mode');
+    updateThemeIcon(savedTheme);
+}
+
+function toggleTheme() {
+    const isDark = document.body.classList.contains('dark-mode');
+    const newTheme = isDark ? 'light' : 'dark';
+
+    document.body.classList.remove('light-mode', 'dark-mode');
+    document.body.classList.add(newTheme + '-mode');
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+}
+
+function updateThemeIcon(theme) {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+}
+
 // Pages to fetch content from
 const pages = [
     { url: 'projects/index_p.html', type: 'project' },
@@ -139,6 +210,20 @@ function sortSectionGrid() {
     items.forEach(item => grid.appendChild(item));
 }
 
+// Initialize language and theme on all pages
+document.addEventListener('DOMContentLoaded', function() {
+    initLanguage();
+    initTheme();
+
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleTheme();
+        });
+    }
+});
+
 // Check if we're on a section page and sort it
 if (window.location.pathname.includes('/index_')) {
     document.addEventListener('DOMContentLoaded', function() {
@@ -146,26 +231,28 @@ if (window.location.pathname.includes('/index_')) {
     });
 }
 
-// Load all items from all pages on page load
-document.addEventListener('DOMContentLoaded', async function() {
-    const allItems = [];
+// Load all items from all pages on page load (only on main index)
+if (!window.location.pathname.includes('/index_')) {
+    document.addEventListener('DOMContentLoaded', async function() {
+        const allItems = [];
 
-    // Fetch items from all pages
-    for (const page of pages) {
-        const items = await fetchGridItems(page.url, page.type);
-        allItems.push(...items);
-    }
+        // Fetch items from all pages
+        for (const page of pages) {
+            const items = await fetchGridItems(page.url, page.type);
+            allItems.push(...items);
+        }
 
-    // Sort items by date (newest first)
-    allItems.sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
-        return dateB - dateA;
+        // Sort items by date (newest first)
+        allItems.sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateB - dateA;
+        });
+
+        // Only show the last 10 items on the main index
+        const recentItems = allItems.slice(0, 10);
+
+        // Display recent items
+        sortAndDisplayItems(recentItems);
     });
-
-    // Only show the last 10 items on the main index
-    const recentItems = allItems.slice(0, 10);
-
-    // Display recent items
-    sortAndDisplayItems(recentItems);
-});
+}
