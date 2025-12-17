@@ -32,7 +32,10 @@ async function fetchGridItems(pageUrl, pageType) {
                 // Get the href from the link, combine with the page folder path
                 const href = link.getAttribute('href');
                 const folderPath = pageUrl.replace(/\/index_[a-z]\.html$/, '');
-                const fullUrl = `${folderPath}/${href}`;
+                // Check if href is an external URL (starts with http:// or https://)
+                const fullUrl = href.startsWith('http://') || href.startsWith('https://')
+                    ? href
+                    : `${folderPath}/${href}`;
 
                 // Get the image src and make it relative to the root if needed
                 let imageSrc = img.getAttribute('src');
