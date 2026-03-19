@@ -1,11 +1,11 @@
 # Fdb version 4
-["xdvipdfmx"] 1773072295.15278 "cv.xdv" "cv.pdf" "cv" 1773072295.63561 0
-  "cv.xdv" 1773072295.12414 50416 a32e59d7192da5095ac69776f30d267c "xelatex"
+["xdvipdfmx"] 1773074165.21514 "cv.xdv" "cv.pdf" "cv" 1773074165.61181 0
+  "cv.xdv" 1773074165.1872 50828 d9aee9eb71732694b21f22c23d81570d "xelatex"
   (generated)
   "cv.pdf"
   (rewritten before read)
-["xelatex"] 1773072293.8926 "/Users/jorgemuyo/Desktop/docs/about/cv.tex" "cv.xdv" "cv" 1773072295.63482 0
-  "/Users/jorgemuyo/Desktop/docs/about/cv.tex" 1773072292.10845 8352 631a6b499c8984c2334717e6a349dccc ""
+["xelatex"] 1773074163.91221 "/Users/jorgemuyo/Desktop/docs/about/cv.tex" "cv.xdv" "cv" 1773074165.61091 0
+  "/Users/jorgemuyo/Desktop/docs/about/cv.tex" 1773074163.67324 8392 2e6a1939942fcc5760a4ae53dae2ac01 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
@@ -58,9 +58,9 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/xetex/xelatex.fmt" 1754745604 5639814 31c79ba0eb0206df63f5d7fe4dd4af4f ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "cv.aux" 1773072295.1234 128 ce4e8fcd2cd78a78dd8635f6ea9c44dc "xelatex"
-  "cv.out" 1773072295.12388 1002 93289cf224c8c7acf4df2a6ec4248bc1 "xelatex"
-  "cv.tex" 1773072292.10845 8352 631a6b499c8984c2334717e6a349dccc ""
+  "cv.aux" 1773074165.18647 128 ce4e8fcd2cd78a78dd8635f6ea9c44dc "xelatex"
+  "cv.out" 1773074165.18692 1002 93289cf224c8c7acf4df2a6ec4248bc1 "xelatex"
+  "cv.tex" 1773074163.67324 8392 2e6a1939942fcc5760a4ae53dae2ac01 ""
   (generated)
   "cv.aux"
   "cv.log"
